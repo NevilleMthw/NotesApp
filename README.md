@@ -1,5 +1,5 @@
 # NotesApp
-An elegant note taking experience made using Flutter.
+<b>Glass - Minimalistic, Simple, Delicate. </b>
 
 <b>User Requirements:</b>
 
