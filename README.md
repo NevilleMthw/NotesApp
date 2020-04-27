@@ -1,5 +1,6 @@
 # NotesApp
 <b>Glass - Minimalistic, Simple, Delicate. </b>
+A notetaking app which has basic functions inbuilt with a minimalistic design.
 
 <b>User Requirements:</b>
 
