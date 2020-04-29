@@ -10,9 +10,10 @@ void main() => runApp(MaterialApp(
           title: Text(
             'Glass',
             style: TextStyle(
-          fontSize: 10.0,
+          fontSize: 15.0,
           letterSpacing: 1.0,
           color: Colors.black,
+          fontFamily: 'Comfortaa',
         ),
             ),
         ),
@@ -37,7 +38,7 @@ void main() => runApp(MaterialApp(
           fontSize: 20.0,
           letterSpacing: 1.0,
           color: Colors.white,
-          fontFamily: 'Orbitron',
+          fontFamily: 'Comfortaa',
         ),
       ),
       centerTitle: true,
