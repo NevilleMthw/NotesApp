@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 TextEditingController _notesController1 =
-    new TextEditingController(text: 'Note Title');
+    new TextEditingController();
 
 TextEditingController _notesController2 = new TextEditingController();
 
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Colors.grey[600],
+      backgroundColor: Colors.blueGrey[700],
       appBar: AppBar(
         title: Text(
           'Glass',
@@ -52,15 +52,16 @@ class Home extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Colors.blueGrey[700],
       ),
       floatingActionButton: FloatingActionButton(
+              elevation: 9.0,
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Hero()));
         },
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Colors.blueGrey[300],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     ));
@@ -74,7 +75,7 @@ class Hero extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        color: Colors.deepPurpleAccent,
+        color: Colors.blueGrey[700],
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -93,7 +94,7 @@ class Hero extends StatelessWidget {
 
 Widget buildHeading(context) {
   return Material(
-    color: Colors.deepPurpleAccent,
+    color: Colors.blueGrey[700],
     child: Padding(
       padding: const EdgeInsets.only(left: 20.0, top: 10.0),
       child: Row(
@@ -102,11 +103,14 @@ Widget buildHeading(context) {
             child: TextField(
               maxLines: 1,
               controller: _notesController1,
-              style: TextStyle(fontSize: 24, color: Colors.white),
+              decoration: InputDecoration(
+                hintText: 'Note Title',
+              ),
+              style: TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'Montserrat',),
             ),
           ),
           FlatButton(
-            child: Icon(Icons.close, color: Colors.white, size: 30),
+            child: Icon(Icons.close, color: Colors.white, size: 27),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -119,7 +123,7 @@ Widget buildHeading(context) {
 
 Widget buildNotesText() {
   return Material(
-    color: Colors.deepPurpleAccent,
+    color: Colors.blueGrey[700],
     child: Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
@@ -130,18 +134,21 @@ Widget buildNotesText() {
         ),
         cursorColor: Colors.white,
         autofocus: true,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white,fontSize: 18),
       ),
     ),
   );
 }
 
 Widget buildSubmitButton(context) {
-  return Material(
-    color: Colors.deepPurpleAccent,
-    child: RaisedButton(
-      child: Text("Save"),
-      color: Colors.greenAccent,
+  return Container(
+    color: Colors.blueGrey[700],
+    margin: EdgeInsets.only(top:340.0),
+    child: RaisedButton.icon(
+      elevation: 9.0,
+      icon: Icon(Icons.save),
+      label: Text('Save'),
+      color: Colors.white,
       onPressed: () async {
         Navigator.of(context).pop();
       },
