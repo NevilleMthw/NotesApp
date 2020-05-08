@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-TextEditingController _notesController1 =
-    new TextEditingController();
-
+TextEditingController _notesController1 = new TextEditingController();
 TextEditingController _notesController2 = new TextEditingController();
+List<String> data =[] ;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -29,13 +29,7 @@ class Home extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Personal'),
-            ),
-            ListTile(
-              title: Text('Expenses'),
-            ),
-            ListTile(
-              title: Text('Random'),
+              title: Text('Trash'),
             ),
           ],
         ),
@@ -59,7 +53,7 @@ class Home extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Hero()));
+              context, MaterialPageRoute(builder: (context) => SharedPreference1()));
         },
         backgroundColor: Colors.blueGrey[300],
       ),
@@ -68,7 +62,34 @@ class Home extends StatelessWidget {
   }
 }
 
-class Hero extends StatelessWidget {
+Future<bool> saveData(String nameKey, String value) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(nameKey, value);
+  }
+ 
+  Future<String> loadData(String nameKey) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString(nameKey);
+  }
+
+class Hero extends State<SharedPreference1> {
+  Widget buildSaveButton(context) {
+  return Container(
+    color: Colors.blueGrey[700],
+    margin: EdgeInsets.only(top:340.0),
+    child: RaisedButton.icon(
+      elevation: 9.0,
+      icon: Icon(Icons.save),
+      label: Text('Save'),
+      color: Colors.white,
+      onPressed: () {
+        saveData("_key_name", _notesController2.text);
+        setData();
+        print(data);
+              },
+            ),
+          ); 
+        }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +103,7 @@ class Hero extends StatelessWidget {
               children: <Widget>[
                 buildHeading(context),
                 buildNotesText(),
-                buildSubmitButton(context),
+                buildSaveButton(context),
               ],
             ),
           ),
@@ -90,6 +111,27 @@ class Hero extends StatelessWidget {
       ),
     );
   }
+  @override
+  void initState() {
+    super.initState();
+    setData();
+    
+  }
+
+  setData() {
+    loadData("_key_name").then((value) {
+      setState(() {
+        if(value==null){
+          print("Value not available.");
+        }
+        else{
+          data.add(value);
+        }
+        
+      });
+    });
+  }
+  
 }
 
 Widget buildHeading(context) {
@@ -104,6 +146,7 @@ Widget buildHeading(context) {
               maxLines: 1,
               controller: _notesController1,
               decoration: InputDecoration(
+                border: InputBorder.none,
                 hintText: 'Note Title',
               ),
               style: TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'Montserrat',),
@@ -131,27 +174,19 @@ Widget buildNotesText() {
         controller: _notesController2,
         decoration: InputDecoration(
           border: InputBorder.none,
+          hintText: 'Create Note Here',
         ),
         cursorColor: Colors.white,
         autofocus: true,
-        style: TextStyle(color: Colors.white,fontSize: 18),
+        style: TextStyle(color: Colors.white,fontSize: 18,fontFamily: 'Montserrat'),
       ),
     ),
   );
 }
 
-Widget buildSubmitButton(context) {
-  return Container(
-    color: Colors.blueGrey[700],
-    margin: EdgeInsets.only(top:340.0),
-    child: RaisedButton.icon(
-      elevation: 9.0,
-      icon: Icon(Icons.save),
-      label: Text('Save'),
-      color: Colors.white,
-      onPressed: () async {
-        Navigator.of(context).pop();
-      },
-    ),
-  );
+ 
+class SharedPreference1 extends StatefulWidget {
+  SharedPreference1() : super(); 
+  @override
+  Hero createState() => Hero();
 }
