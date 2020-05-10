@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 TextEditingController _notesController1 = new TextEditingController();
 TextEditingController _notesController2 = new TextEditingController();
-List<String> data =[] ;
+List<String> data = [];
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -82,9 +82,9 @@ class Hero extends State<SharedPreference1> {
       icon: Icon(Icons.save),
       label: Text('Save'),
       color: Colors.white,
-      onPressed: () {
-        saveData("_key_name", _notesController2.text);
-        setData();
+      onPressed: () async {
+        await saveData("_key_name", _notesController2.text);
+        await setData();
         print(data);
               },
             ),
