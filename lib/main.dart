@@ -3,13 +3,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 TextEditingController _notesController1 = new TextEditingController();
 TextEditingController _notesController2 = new TextEditingController();
-List<String> data = [];
+List<String> data = ["Welcome To Flutter"];
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
     ));
-
+    
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,6 +48,20 @@ class Home extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.blueGrey[700],
       ),
+      body: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            onTap:() {},
+            title: Text(
+              data[index],
+            ),
+          ),
+          );
+       },
+      ),
+          
       floatingActionButton: FloatingActionButton(
               elevation: 9.0,
         child: Icon(Icons.add),
@@ -66,12 +80,10 @@ Future<bool> saveData(String nameKey, String value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(nameKey, value);
   }
- 
   Future<String> loadData(String nameKey) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(nameKey);
   }
-
 class Hero extends State<SharedPreference1> {
   Widget buildSaveButton(context) {
   return Container(
@@ -89,7 +101,7 @@ class Hero extends State<SharedPreference1> {
               },
             ),
           ); 
-        }
+        }      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +196,6 @@ Widget buildNotesText() {
   );
 }
 
- 
 class SharedPreference1 extends StatefulWidget {
   SharedPreference1() : super(); 
   @override
