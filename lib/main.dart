@@ -3,14 +3,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 TextEditingController _notesController1 = new TextEditingController();
 TextEditingController _notesController2 = new TextEditingController();
-List<String> data = ["Welcome To Flutter"];
+List<String> data = [];
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
     ));
-    
-class Home extends StatelessWidget {
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
@@ -65,8 +70,8 @@ class Home extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
               elevation: 9.0,
         child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
               context, MaterialPageRoute(builder: (context) => SharedPreference1()));
         },
         backgroundColor: Colors.blueGrey[300],
@@ -80,7 +85,7 @@ Future<bool> saveData(String nameKey, String value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(nameKey, value);
   }
-  Future<String> loadData(String nameKey) async {
+Future<String> loadData(String nameKey) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(nameKey);
   }
@@ -98,6 +103,7 @@ class Hero extends State<SharedPreference1> {
         await saveData("_key_name", _notesController2.text);
         await setData();
         print(data);
+        Navigator.of(context).pop();
               },
             ),
           ); 
@@ -143,7 +149,7 @@ class Hero extends State<SharedPreference1> {
       });
     });
   }
-  
+
 }
 
 Widget buildHeading(context) {
