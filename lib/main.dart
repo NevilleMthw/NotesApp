@@ -133,7 +133,6 @@ class Hero extends State<SharedPreference1> {
   void initState() {
     super.initState();
     setData();
-    
   }
 
   setData() {
