@@ -22,4 +22,4 @@ A notetaking app which has basic functions inbuilt with a minimalistic design.
 <b>Note: Android Studio is not required but will be better since it comes with Android SDK installed.</b>
 
 <b>Contributions:</b>
-Please keep an eye out in the issues section, feel free to provide any feedback.
+Please keep an eye out in the issues section, feel free to provide any feedback and ideas for the app.
