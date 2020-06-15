@@ -103,7 +103,7 @@ class Hero extends State<SharedPreference1> {
         await saveData("_key_name", _notesController2.text);
         await setData();
         print(data);
-        Navigator.of(context).pop();
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
               },
             ),
           ); 
