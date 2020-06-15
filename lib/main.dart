@@ -34,7 +34,12 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              title: Text('Trash'),
+              title: Text(
+                'Trash',
+              style:TextStyle(
+              fontFamily: 'Montserrat',
+              )
+              )
             ),
           ],
         ),
