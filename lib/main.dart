@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
         itemBuilder: (context, index) {
         return Card(
           child: ListTile(
+            dense: true,
             onTap:() {},
             title: Text(
               data[index],
@@ -105,7 +106,7 @@ class Hero extends State<SharedPreference1> {
       label: Text('Save'),
       color: Colors.white,
       onPressed: () async {
-        await saveData("_key_name", _notesController2.text);
+        await saveData("_key_name", _notesController1.text);
         await setData();
         print(data);
         Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
