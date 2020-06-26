@@ -19,31 +19,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text(
-                'Glass',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
-                  color: Colors.black,
-                  fontFamily: 'Montserrat',
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Trash',
-              style:TextStyle(
-              fontFamily: 'Montserrat',
-              )
-              )
-            ),
-          ],
-        ),
-      ),
+     
       backgroundColor: Colors.blueGrey[700],
       appBar: AppBar(
         title: Text(
@@ -59,20 +35,25 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.blueGrey[700],
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.only(top: 5.0),
         itemCount: data.length,
         itemBuilder: (context, index) {
-        return Card(
+        return GestureDetector(
+          child:Card(
+            child:Padding(
+            padding: const EdgeInsets.only(top: 10.0, bottom: 10, left: 10.0, right: 10.0),
           child: ListTile(
             dense: true,
             onTap:() {},
             title: Text(
               data[index],
             ),
+          ), 
           ),
-          );
+          ),
+        );
        },
-      ),
-          
+      ), 
       floatingActionButton: FloatingActionButton(
               elevation: 9.0,
         child: Icon(Icons.add),
