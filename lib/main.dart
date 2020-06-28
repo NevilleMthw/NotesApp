@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-TextEditingController _notesController1 = new TextEditingController();
-TextEditingController _notesController2 = new TextEditingController();
-List<String> data = [];
-
+final data = [];
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
@@ -19,9 +16,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-     
       backgroundColor: Colors.blueGrey[700],
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Glass',
           style: TextStyle(
@@ -35,18 +32,19 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.blueGrey[700],
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.only(top: 5.0),
+        padding: const EdgeInsets.only(top: 10.0),
         itemCount: data.length,
         itemBuilder: (context, index) {
         return GestureDetector(
           child:Card(
             child:Padding(
-            padding: const EdgeInsets.only(top: 10.0, bottom: 10, left: 10.0, right: 10.0),
+            padding: const EdgeInsets.only(top: 12.0, bottom: 10, left: 10.0, right: 10.0),
           child: ListTile(
             dense: true,
             onTap:() {},
             title: Text(
               data[index],
+              overflow: TextOverflow.ellipsis,
             ),
           ), 
           ),
@@ -59,7 +57,7 @@ class _HomeState extends State<Home> {
         child: Icon(Icons.add),
         onPressed: () async {
           await Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SharedPreference1()));
+            context, MaterialPageRoute(builder: (context) => SharedPreference1()));
         },
         backgroundColor: Colors.blueGrey[300],
       ),
@@ -76,7 +74,10 @@ Future<String> loadData(String nameKey) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(nameKey);
   }
+
 class Hero extends State<SharedPreference1> {
+TextEditingController _notesController1 = new TextEditingController();
+TextEditingController _notesController2 = new TextEditingController();
   Widget buildSaveButton(context) {
   return Container(
     color: Colors.blueGrey[700],
@@ -116,29 +117,7 @@ class Hero extends State<SharedPreference1> {
       ),
     );
   }
-  @override
-  void initState() {
-    super.initState();
-    setData();
-  }
-
-  setData() {
-    loadData("_key_name").then((value) {
-      setState(() {
-        if(value==null){
-          print("Value not available.");
-        }
-        else{
-          data.add(value);
-        }
-        
-      });
-    });
-  }
-
-}
-
-Widget buildHeading(context) {
+  Widget buildHeading(context) {
   return Material(
     color: Colors.blueGrey[700],
     child: Padding(
@@ -153,7 +132,11 @@ Widget buildHeading(context) {
                 border: InputBorder.none,
                 hintText: 'Note Title',
               ),
-              style: TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'Montserrat',),
+              style: TextStyle(
+                fontSize: 20, 
+                color: Colors.white, 
+                fontFamily: 'Montserrat',
+                ),
             ),
           ),
           FlatButton(
@@ -186,6 +169,25 @@ Widget buildNotesText() {
       ),
     ),
   );
+}
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  setData() {
+    loadData("_key_name").then((value) {
+      setState(() {
+        if(value==null){
+          print("Value not available.");
+        }
+        else{
+          data.add(value);
+        }
+        
+      });
+    });
+  }
 }
 
 class SharedPreference1 extends StatefulWidget {
